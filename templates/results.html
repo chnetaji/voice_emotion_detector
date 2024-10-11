@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/page.css') }}" />
+
+    <style>
+        .page {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .title {
+            color: black;
+            font: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header id="header">
+        <img href="{{ url_for('static', filename='assets/home.png') }}" class="logo"
+            src="{{ url_for('static', filename='assets/logo.png') }}" alt="" />
+        <div class="right">
+            <button onclick="window.location.href='/sign_in.html'" class="auth">Sign In</button>
+            <button onclick="window.location.href='/sign_up.html'" class="auth">Sign Up</button>
+        </div>
+    </header>
+    <div class="page">
+        <h1 class="title">Predicted Emotions</h1>
+        <ul>
+            {% for prediction in predictions %}
+            <li>{{ prediction }}</li>
+            {% endfor %}
+        </ul>
+        <a class="file-btn" href="/">Go back</a>
+    </div>
+    <footer>
+        <span class="credits">Developed By
+            <a class="linkedin" href="https://www.linkedin.com/in/chnetaji" target="_blank">
+                CH Netaji Bhadraiahnath Chowdary</a></span>
+        <a href="https://github.com/chnetaji?tab=repositories" target="_blank">
+            <img src="{{ url_for('static', filename='assets/github.png') }}" alt="Github" class="github">
+        </a>
+    </footer>
+</body>
+
+</html>
