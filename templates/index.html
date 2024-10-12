@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+
+    <style>
+      .page {
+        background-color: #dcbe5b;
+        width: 80%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 30px;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+
+      .details {
+        width: 90%;
+      }
+
+      p {
+        text-align: justify;
+        padding: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header id="header">
+      <img
+        class="logo"
+        src="{{ url_for('static', filename='assets/logo.png') }}"
+        alt="Logo"
+        onclick="window.location.href='{{ url_for('home') }}'"
+      />
+      <div class="right">
+        <button
+          onclick="window.location.href='{{ url_for('sign_in') }}'"
+          class="auth"
+        >
+          Sign In
+        </button>
+        <button
+          onclick="window.location.href='{{ url_for('sign_up') }}'"
+          class="auth"
+        >
+          Sign Up
+        </button>
+      </div>
+    </header>
+
+    <div class="page">
+      <h1>VOICE EMOTION DETECTION</h1>
+      <div class="details">
+        <p>
+          <b>1. Emotion Detection Model:</b> A sequential LSTM-based model is
+          used to predict emotions from voice recordings, leveraging powerful
+          deep learning techniques.
+        </p>
+        <p>
+          <b> 2. Comprehensive Dataset:</b> The model is trained on a combined
+          dataset, including TESS, SAVEE, RAVDESS, and CREMA, providing a broad
+          range of emotional expressions.
+        </p>
+
+        <p>
+          <b> 3. Feature Extraction:</b> Mel-frequency cepstral coefficients
+          (MFCCs) are calculated from the audio files, capturing essential audio
+          features for effective emotion recognition.
+        </p>
+        <p>
+          <b>4. Web Application Integration: </b>The model is integrated into a
+          Flask-based web application, allowing users to upload audio files and
+          receive real-time emotion analysis through an easy-to-use interface.
+        </p>
+        <p><b>Sign In to access the application</b></p>
+      </div>
+    </div>
+    <footer>
+      <span class="credits"
+        >Developed By
+        <a
+          class="linkedin"
+          href="https://www.linkedin.com/in/chnetaji"
+          target="_blank"
+        >
+          CH Netaji Bhadraiahnath Chowdary</a
+        ></span
+      >
+      <a href="https://github.com/chnetaji?tab=repositories" target="_blank">
+        <img
+          src="{{ url_for('static', filename='assets/github.png') }}"
+          alt="Github"
+          class="github"
+        />
+      </a>
+    </footer>
+  </body>
+</html>

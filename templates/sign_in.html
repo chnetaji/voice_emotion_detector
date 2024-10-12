@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/sign.css') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/input.css') }}"
+    />
+
+    <script>
+      function forgotPassword() {
+        alert("You lost your Account!\nCreate a new Account");
+      }
+
+      async function signIn(event) {
+        event.preventDefault();
+
+        const email = document.querySelector("#email").value;
+        const password = document.querySelector("#password").value;
+
+        try {
+          const response = await fetch("/sign_in", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: email,
+              password: password,
+            }),
+          });
+
+          const result = await response.json();
+          if (result.status === "success") {
+            alert("Sign in successful!");
+            window.location.href = "/input";
+          } else {
+            alert(result.message);
+          }
+        } catch (error) {
+          alert("An error occurred. Please try again.");
+        }
+      }
+    </script>
+    <style>
+      .sign-in-right {
+        height: 350px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header id="header">
+      <img
+        class="logo"
+        src="{{ url_for('static', filename='assets/logo.png') }}"
+        alt="Logo"
+        onclick="window.location.href='{{ url_for('home') }}'"
+      />
+      <div class="right">
+        <button
+          onclick="window.location.href='{{ url_for('sign_up') }}'"
+          class="auth"
+        >
+          Sign Up
+        </button>
+      </div>
+    </header>
+
+    <div class="page">
+      <div class="sign-in-left">
+        <img
+          class="show"
+          src="{{ url_for('static', filename='assets/icons/wave.png') }}"
+          alt=""
+        />
+        <span class="msg">Sign In to Explore the Emotions of Sound</span>
+      </div>
+      <div class="sign-in-right">
+        <form id="sign-in-form" onsubmit="signIn(event)">
+          <div class="inp-box">
+            <div class="input-group">
+              <input
+                id="email"
+                class="inp"
+                required
+                type="text"
+                autocomplete="off"
+              />
+              <label class="inp-label" for="email">Email ID</label>
+            </div>
+            <div class="input-group">
+              <input
+                id="password"
+                class="inp"
+                required
+                type="password"
+                autocomplete="off"
+              />
+              <label class="inp-label" for="password">Password</label>
+            </div>
+          </div>
+          <div>
+            <a href="javascript:void(0)" class="fp" onclick="forgotPassword()"
+              >Forgot Password?</a
+            >
+          </div>
+          <button type="submit" class="sign">Sign In</button>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <span class="credits"
+        >Developed By
+        <a
+          class="linkedin"
+          href="https://www.linkedin.com/in/name"
+          target="_blank"
+        >
+          name</a
+        ></span
+      >
+      <a href="https://github.com/name?tab=repositories" target="_blank">
+        <img
+          src="{{ url_for('static', filename='assets/github.png') }}"
+          alt="Github"
+          class="github"
+        />
+      </a>
+    </footer>
+  </body>
+</html>

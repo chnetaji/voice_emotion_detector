@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/page.css') }}"
+    />
+  </head>
+
+  <body>
+    <header id="header">
+      <img
+        class="logo"
+        src="{{ url_for('static', filename='assets/logo.png') }}"
+        alt="Logo"
+        onclick="window.location.href='{{ url_for('home') }}'"
+      />
+      <div class="right">
+        <button
+          onclick="window.location.href='{{ url_for('log_out') }}'"
+          class="auth"
+        >
+          Log Out
+        </button>
+      </div>
+    </header>
+
+    <form
+      id="uploadForm"
+      action="/upload"
+      method="post"
+      enctype="multipart/form-data"
+      onsubmit="return validateForm()"
+    >
+      <div class="page">
+        <input
+          class="file-upload"
+          type="file"
+          name="audio"
+          id="audioFile"
+          accept=".wav"
+        />
+        <input class="file-btn" type="submit" value="Upload" />
+      </div>
+    </form>
+
+    <script>
+      function validateForm() {
+        var audioFile = document.getElementById("audioFile").value;
+        if (audioFile == "") {
+          alert("Please select a file to upload.");
+          return false; 
+        }
+        return true; 
+      }
+    </script>
+
+    <footer>
+      <span class="credits"
+        >Developed By
+        <a
+          class="linkedin"
+          href="https://www.linkedin.com/in/chnetaji"
+          target="_blank"
+        >
+          CH Netaji Bhadraiahnath Chowdary</a
+        ></span
+      >
+      <a href="https://github.com/chnetaji?tab=repositories" target="_blank">
+        <img
+          src="{{ url_for('static', filename='assets/github.png') }}"
+          alt="Github"
+          class="github"
+        />
+      </a>
+    </footer>
+  </body>
+</html>

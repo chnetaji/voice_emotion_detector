@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/sign.css') }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/input.css') }}"
+    />
+
+    <script>
+      function forgotPassword() {
+        alert("You lost your Account!\nCreate a new Account");
+      }
+    </script>
+    <style>
+      .sign-in-right {
+        height: max-content;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header id="header">
+      <img
+        class="logo"
+        src="{{ url_for('static', filename='assets/logo.png') }}"
+        alt="Logo"
+        onclick="window.location.href='{{ url_for('home') }}'"
+      />
+      <div class="right">
+        <button
+          onclick="window.location.href='{{ url_for('sign_in') }}'"
+          class="auth"
+        >
+          Sign In
+        </button>
+      </div>
+    </header>
+
+    <div class="page">
+      <div class="sign-in-left">
+        <img
+          src="{{ url_for('static', filename='assets/icons/alien.png') }}"
+          class="alien"
+          alt="Alien"
+        />
+        <span class="greetings">Hey, Aliens!</span>
+        <div class="text">
+          <span class="msg">Sign up to explore the depth of emotions</span>
+          <span class="msg">within each voice.</span>
+        </div>
+      </div>
+      <div class="sign-in-right">
+        <form id="sign-up-form" onsubmit="signUp(event)">
+          <div class="inp-box">
+            <div class="input-group">
+              <input
+                id="name"
+                class="inp"
+                required
+                type="text"
+                autocomplete="off"
+              />
+              <label class="inp-label" for="name">Name</label>
+            </div>
+            <div class="input-group">
+              <input
+                id="email"
+                class="inp"
+                required
+                type="email"
+                autocomplete="off"
+              />
+              <label class="inp-label" for="email">Email ID</label>
+            </div>
+            <div class="input-group">
+              <input
+                id="password"
+                class="inp"
+                required
+                type="password"
+                autocomplete="off"
+              />
+              <label class="inp-label" for="password">New Password</label>
+            </div>
+            <div class="input-group">
+              <input
+                id="confirm-password"
+                class="inp"
+                required
+                type="password"
+                autocomplete="off"
+              />
+              <label class="inp-label" for="confirm-password"
+                >Confirm Password</label
+              >
+            </div>
+          </div>
+          <button type="submit" class="sign">Sign Up</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      async function signUp(event) {
+        event.preventDefault();
+
+        const name = document.querySelector("#name").value;
+        const email = document.querySelector("#email").value;
+        const password = document.querySelector("#password").value;
+        const confirmPassword =
+          document.querySelector("#confirm-password").value;
+
+        if (password !== confirmPassword) {
+          alert("Passwords do not match!");
+          return;
+        }
+
+        try {
+          const response = await fetch("/sign_up", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: name,
+              email: email,
+              password: password,
+            }),
+          });
+
+          const result = await response.json();
+          if (result.status === "success") {
+            alert("Account created successfully!");
+            window.location.href = "/sign_in";
+          } else {
+            alert(result.message);
+          }
+        } catch (error) {
+          alert("An error occurred. Please try again.");
+        }
+      }
+    </script>
+
+    <footer>
+      <span class="credits"
+        >Developed By
+        <a
+          class="linkedin"
+          href="https://www.linkedin.com/in/name"
+          target="_blank"
+        >
+          name</a
+        ></span
+      >
+      <a href="https://github.com" target="_blank">
+        <img
+          src="{{ url_for('static', filename='assets/github.png') }}"
+          alt="Github"
+          class="github"
+        />
+      </a>
+    </footer>
+  </body>
+</html>

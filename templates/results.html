@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/page.css') }}"
+    />
+
+    <style>
+      .page {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: max-content;
+      }
+
+      .title {
+        color: black;
+        font: bold;
+      }
+
+      .emotions {
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .emotion {
+        width: 250px;
+        flex: 0 1 calc(33.33% - 40px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #3e3b39;
+        border-radius: 15px;
+        margin: 20px;
+        padding: 20px;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      .emotion-icon {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 15px;
+      }
+
+      .emotion-name {
+        font-size: 22px;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 10px;
+      }
+
+      .confidence {
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        margin-top: 10px;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header id="header">
+      <img
+        class="logo"
+        src="{{ url_for('static', filename='assets/logo.png') }}"
+        alt="Logo"
+        onclick="window.location.href='{{ url_for('home') }}'"
+      />
+      <div class="right">
+        <button
+          onclick="window.location.href='{{ url_for('log_out') }}'"
+          class="auth"
+        >
+          Log Out
+        </button>
+      </div>
+    </header>
+    <div class="page">
+      <h1 class="title">Predicted Emotions</h1>
+      <div class="emotions">
+        {% for prediction in predictions %}
+        <div class="emotion">
+          <span class="emotion-name">{{prediction}}</span>
+          <img
+            src="{{ url_for('static', filename='assets/emoji/' + prediction + '.png') }}"
+            class="emotion-icon"
+          />
+          <span class="confidence"
+            >Confidence: {{predictions[prediction]}}</span
+          >
+        </div>
+        {% endfor %}
+      </div>
+      <button
+        class="file-btn"
+        onclick="window.location.href='{{ url_for('home') }}'"
+      >
+        Go Back
+      </button>
+    </div>
+    <footer>
+      <span class="credits"
+        >Developed By
+        <a
+          class="linkedin"
+          href="https://www.linkedin.com/in/chnetaji"
+          target="_blank"
+        >
+          CH Netaji Bhadraiahnath Chowdary</a
+        ></span
+      >
+      <a href="https://github.com/chnetaji?tab=repositories" target="_blank">
+        <img
+          src="{{ url_for('static', filename='assets/github.png') }}"
+          alt="Github"
+          class="github"
+        />
+      </a>
+    </footer>
+  </body>
+</html>

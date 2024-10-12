@@ -1,0 +1,41 @@
+.input-group {
+  position: relative;
+  padding: 10px;
+  margin: 10px;
+}
+
+.inp {
+  border: solid 2px #3e3b39;
+  border-radius: 1rem;
+  background: none;
+  padding: 1rem;
+  font-size: 1rem;
+  color: black;
+  font-weight: bold;
+  transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  width: 400px;
+}
+
+.inp-label {
+  position: absolute;
+  font-weight: bold;
+  left: 15px;
+  padding-left: 10px;
+  color: #3e3b39;
+  pointer-events: none;
+  transform: translateY(1rem);
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.inp:focus,
+inp:valid {
+  outline: none;
+}
+
+.inp:focus ~ label,
+input:valid ~ label {
+  transform: translateY(-50%) scale(0.8);
+  background-color: #fcedbe;
+  color: black;
+  padding: 0 0.2em;
+}
